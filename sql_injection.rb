@@ -10,12 +10,12 @@ class SQL_Injection
 		uri = URI.parse(alamat)
 		@web = Net::HTTP.new(uri.host, uri.port)
 		@web.use_ssl if harus_encrypt?(alamat)
-		@asal = buat_pembanding
+		@asal = buat_pembanding(alamat)
 
 		@asal.children.each { |i| elemen_berpotensi(i, ['body']) }
 	end
 
-	def buat_pembanding
+	def buat_pembanding(alamat)
 		halaman = Nokogiri::HTML.parse(web.get(alamat).body)
 		halaman.css("body")
 	end

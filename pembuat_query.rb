@@ -55,7 +55,9 @@ class PembuatQuery
 				puts "Pencarian KoLoM =============================="
 			end
 			@kolom += data[:naik] ? 1 : -1 
-			buat_orderby
+			q = buat_orderby
+			orderby_santai if @kolom.zero?
+			return q
 		when :union_konten
 			puts "UNION SELECT ================================"
 			buat_union(1..kolom)
@@ -77,6 +79,11 @@ class PembuatQuery
 			i.chop!
 			"/*!12345%s*/+" % i
 		end
+	end
+
+	def orderby_santai
+		@data = { fokus: 1, naik: true }
+		@kolom = 1
 	end
 
 	def buat_bentuk_orderby

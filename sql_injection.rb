@@ -9,7 +9,7 @@ class SQL_Injection
 		@lihat_union = false
 		uri = URI.parse(alamat)
 		@web = Net::HTTP.new(uri.host, uri.port)
-		@web.use_ssl if harus_encrypt?(alamat)
+		@web.use_ssl = true if harus_encrypt?(alamat)
 		@asal = buat_pembanding(alamat)
 
 		@asal.children.each { |i| elemen_berpotensi(i, ['body']) }

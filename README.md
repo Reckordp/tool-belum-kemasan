@@ -3,8 +3,8 @@
 ![Show](automatic.png)
 
 Requirements
- * Ruby (download)[http://www.ruby-lang.org/en/]
- * nokogiri (Gem)(install)[http://rubygems.org/search?query=nokogiri]
+ * Ruby (download)[http://www.ruby-lang.org/en/ "Link"]
+ * nokogiri (Gem)(install)[http://rubygems.org/search?query=nokogiri "Link"]
 
 
 Jalankan di linux
